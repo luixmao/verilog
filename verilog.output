@@ -1,0 +1,450 @@
+Terminals unused in grammar
+
+   BINARY
+
+
+Grammar
+
+    0 $accept: design $end
+
+    1 design: design_decl port_decl ';' body_list ENDMODULE
+
+    2 design_decl: MODULE ID
+
+    3 port_decl: '(' port_list ')'
+
+    4 port_list: ID
+    5          | port_list ',' ID
+
+    6 body_list: body_item ';'
+    7          | body_list body_item ';'
+
+    8 body_item: INPUT ID
+    9          | OUTPUT ID
+   10          | WIRE ID
+   11          | gate_inst net_decl
+
+   12 net_decl: '(' net_list ')'
+
+   13 net_list: ID
+   14         | net_list ',' ID
+
+   15 gate_inst: gate_type '#' NUMBER ID
+   16          | gate_type ID
+
+   17 gate_type: GAND
+   18          | GOR
+   19          | GNAND
+   20          | GNOR
+   21          | GXOR
+   22          | GNOT
+
+
+Terminals, with rules where they appear
+
+$end (0) 0
+'#' (35) 15
+'(' (40) 3 12
+')' (41) 3 12
+',' (44) 5 14
+';' (59) 1 6 7
+error (256)
+NUMBER (258) 15
+ID (259) 2 4 5 8 9 10 13 14 15 16
+BINARY (260)
+MODULE (261) 2
+ENDMODULE (262) 1
+INPUT (263) 8
+OUTPUT (264) 9
+WIRE (265) 10
+GAND (266) 17
+GOR (267) 18
+GNAND (268) 19
+GNOR (269) 20
+GXOR (270) 21
+GNOT (271) 22
+
+
+Nonterminals, with rules where they appear
+
+$accept (22)
+    on left: 0
+design (23)
+    on left: 1, on right: 0
+design_decl (24)
+    on left: 2, on right: 1
+port_decl (25)
+    on left: 3, on right: 1
+port_list (26)
+    on left: 4 5, on right: 3 5
+body_list (27)
+    on left: 6 7, on right: 1 7
+body_item (28)
+    on left: 8 9 10 11, on right: 6 7
+net_decl (29)
+    on left: 12, on right: 11
+net_list (30)
+    on left: 13 14, on right: 12 14
+gate_inst (31)
+    on left: 15 16, on right: 11
+gate_type (32)
+    on left: 17 18 19 20 21 22, on right: 15 16
+
+
+state 0
+
+    0 $accept: . design $end
+
+    MODULE  shift, and go to state 1
+
+    design       go to state 2
+    design_decl  go to state 3
+
+
+state 1
+
+    2 design_decl: MODULE . ID
+
+    ID  shift, and go to state 4
+
+
+state 2
+
+    0 $accept: design . $end
+
+    $end  shift, and go to state 5
+
+
+state 3
+
+    1 design: design_decl . port_decl ';' body_list ENDMODULE
+
+    '('  shift, and go to state 6
+
+    port_decl  go to state 7
+
+
+state 4
+
+    2 design_decl: MODULE ID .
+
+    $default  reduce using rule 2 (design_decl)
+
+
+state 5
+
+    0 $accept: design $end .
+
+    $default  accept
+
+
+state 6
+
+    3 port_decl: '(' . port_list ')'
+
+    ID  shift, and go to state 8
+
+    port_list  go to state 9
+
+
+state 7
+
+    1 design: design_decl port_decl . ';' body_list ENDMODULE
+
+    ';'  shift, and go to state 10
+
+
+state 8
+
+    4 port_list: ID .
+
+    $default  reduce using rule 4 (port_list)
+
+
+state 9
+
+    3 port_decl: '(' port_list . ')'
+    5 port_list: port_list . ',' ID
+
+    ')'  shift, and go to state 11
+    ','  shift, and go to state 12
+
+
+state 10
+
+    1 design: design_decl port_decl ';' . body_list ENDMODULE
+
+    INPUT   shift, and go to state 13
+    OUTPUT  shift, and go to state 14
+    WIRE    shift, and go to state 15
+    GAND    shift, and go to state 16
+    GOR     shift, and go to state 17
+    GNAND   shift, and go to state 18
+    GNOR    shift, and go to state 19
+    GXOR    shift, and go to state 20
+    GNOT    shift, and go to state 21
+
+    body_list  go to state 22
+    body_item  go to state 23
+    gate_inst  go to state 24
+    gate_type  go to state 25
+
+
+state 11
+
+    3 port_decl: '(' port_list ')' .
+
+    $default  reduce using rule 3 (port_decl)
+
+
+state 12
+
+    5 port_list: port_list ',' . ID
+
+    ID  shift, and go to state 26
+
+
+state 13
+
+    8 body_item: INPUT . ID
+
+    ID  shift, and go to state 27
+
+
+state 14
+
+    9 body_item: OUTPUT . ID
+
+    ID  shift, and go to state 28
+
+
+state 15
+
+   10 body_item: WIRE . ID
+
+    ID  shift, and go to state 29
+
+
+state 16
+
+   17 gate_type: GAND .
+
+    $default  reduce using rule 17 (gate_type)
+
+
+state 17
+
+   18 gate_type: GOR .
+
+    $default  reduce using rule 18 (gate_type)
+
+
+state 18
+
+   19 gate_type: GNAND .
+
+    $default  reduce using rule 19 (gate_type)
+
+
+state 19
+
+   20 gate_type: GNOR .
+
+    $default  reduce using rule 20 (gate_type)
+
+
+state 20
+
+   21 gate_type: GXOR .
+
+    $default  reduce using rule 21 (gate_type)
+
+
+state 21
+
+   22 gate_type: GNOT .
+
+    $default  reduce using rule 22 (gate_type)
+
+
+state 22
+
+    1 design: design_decl port_decl ';' body_list . ENDMODULE
+    7 body_list: body_list . body_item ';'
+
+    ENDMODULE  shift, and go to state 30
+    INPUT      shift, and go to state 13
+    OUTPUT     shift, and go to state 14
+    WIRE       shift, and go to state 15
+    GAND       shift, and go to state 16
+    GOR        shift, and go to state 17
+    GNAND      shift, and go to state 18
+    GNOR       shift, and go to state 19
+    GXOR       shift, and go to state 20
+    GNOT       shift, and go to state 21
+
+    body_item  go to state 31
+    gate_inst  go to state 24
+    gate_type  go to state 25
+
+
+state 23
+
+    6 body_list: body_item . ';'
+
+    ';'  shift, and go to state 32
+
+
+state 24
+
+   11 body_item: gate_inst . net_decl
+
+    '('  shift, and go to state 33
+
+    net_decl  go to state 34
+
+
+state 25
+
+   15 gate_inst: gate_type . '#' NUMBER ID
+   16          | gate_type . ID
+
+    ID   shift, and go to state 35
+    '#'  shift, and go to state 36
+
+
+state 26
+
+    5 port_list: port_list ',' ID .
+
+    $default  reduce using rule 5 (port_list)
+
+
+state 27
+
+    8 body_item: INPUT ID .
+
+    $default  reduce using rule 8 (body_item)
+
+
+state 28
+
+    9 body_item: OUTPUT ID .
+
+    $default  reduce using rule 9 (body_item)
+
+
+state 29
+
+   10 body_item: WIRE ID .
+
+    $default  reduce using rule 10 (body_item)
+
+
+state 30
+
+    1 design: design_decl port_decl ';' body_list ENDMODULE .
+
+    $default  reduce using rule 1 (design)
+
+
+state 31
+
+    7 body_list: body_list body_item . ';'
+
+    ';'  shift, and go to state 37
+
+
+state 32
+
+    6 body_list: body_item ';' .
+
+    $default  reduce using rule 6 (body_list)
+
+
+state 33
+
+   12 net_decl: '(' . net_list ')'
+
+    ID  shift, and go to state 38
+
+    net_list  go to state 39
+
+
+state 34
+
+   11 body_item: gate_inst net_decl .
+
+    $default  reduce using rule 11 (body_item)
+
+
+state 35
+
+   16 gate_inst: gate_type ID .
+
+    $default  reduce using rule 16 (gate_inst)
+
+
+state 36
+
+   15 gate_inst: gate_type '#' . NUMBER ID
+
+    NUMBER  shift, and go to state 40
+
+
+state 37
+
+    7 body_list: body_list body_item ';' .
+
+    $default  reduce using rule 7 (body_list)
+
+
+state 38
+
+   13 net_list: ID .
+
+    $default  reduce using rule 13 (net_list)
+
+
+state 39
+
+   12 net_decl: '(' net_list . ')'
+   14 net_list: net_list . ',' ID
+
+    ')'  shift, and go to state 41
+    ','  shift, and go to state 42
+
+
+state 40
+
+   15 gate_inst: gate_type '#' NUMBER . ID
+
+    ID  shift, and go to state 43
+
+
+state 41
+
+   12 net_decl: '(' net_list ')' .
+
+    $default  reduce using rule 12 (net_decl)
+
+
+state 42
+
+   14 net_list: net_list ',' . ID
+
+    ID  shift, and go to state 44
+
+
+state 43
+
+   15 gate_inst: gate_type '#' NUMBER ID .
+
+    $default  reduce using rule 15 (gate_inst)
+
+
+state 44
+
+   14 net_list: net_list ',' ID .
+
+    $default  reduce using rule 14 (net_list)
